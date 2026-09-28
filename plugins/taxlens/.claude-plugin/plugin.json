@@ -1,0 +1,20 @@
+{
+  "name": "taxlens",
+  "displayName": "택스렌즈",
+  "version": "0.4.0",
+  "description": "택스렌즈(TaxLens) 부동산 세무 도구 14종(사용 가이드·물건 검색·필지 상세·과세표준 판단 규칙·판례·심판례 검색과 전문·소유권 변동 조회와 필지 이력·등기소 소유자 조회·계정 확인, 그리고 정비사업·산업단지·오피스텔 환급 가망 탐색과 정비사업 개요)과, 가이드 도구를 먼저 부르게 하는 taxlens·refund-prospects 스킬·슬래시 커맨드 4종. 원격 HTTP MCP 서버이며 설치 후 브라우저 로그인 한 번으로 연결된다. 등기소 소유자 조회만 외부 조회·저장을 하고 나머지는 읽기 전용이다.",
+  "author": {
+    "name": "risingdream"
+  },
+  "homepage": "https://lens.taxdesk.kr",
+  "repository": "https://github.com/risingdream/taxlens-plugin",
+  "license": "UNLICENSED",
+  "keywords": [
+    "tax",
+    "real-estate",
+    "korea",
+    "local-tax",
+    "refund",
+    "mcp"
+  ]
+}

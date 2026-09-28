@@ -1,0 +1,32 @@
+{
+  "name": "taxlens-plugin",
+  "owner": {
+    "name": "risingdream"
+  },
+  "metadata": {
+    "description": "택스렌즈 부동산 세무 도구 마켓플레이스 — 원격 택스렌즈 MCP 서버(물건·필지·환급·환급 가망·과세표준·판례)와 사용 절차 스킬",
+    "version": "0.4.0"
+  },
+  "plugins": [
+    {
+      "name": "taxlens",
+      "source": "./plugins/taxlens",
+      "description": "택스렌즈 물건·필지·환급 가망 탐색(정비사업·산업단지·오피스텔)·과세표준 판단 규칙·판례를 조회하는 원격 MCP 서버. 서버 가이드를 먼저 부르게 하는 taxlens·refund-prospects 스킬과 슬래시 커맨드 4종을 함께 싣는다. 브라우저 로그인으로 설치가 끝난다.",
+      "version": "0.4.0",
+      "author": {
+        "name": "risingdream"
+      },
+      "homepage": "https://github.com/risingdream/taxlens-plugin",
+      "license": "UNLICENSED",
+      "category": "productivity",
+      "keywords": [
+        "tax",
+        "real-estate",
+        "korea",
+        "local-tax",
+        "refund",
+        "mcp"
+      ]
+    }
+  ]
+}
