@@ -1,7 +1,7 @@
 # 택스렌즈 플러그인
 
 택스렌즈(TaxLens)의 부동산 세무 데이터 — 물건·필지·환급 가망 탐색·과세표준 판단 규칙·판례 — 를
-원격 MCP 서버(`https://lens.taxdesk.kr/mcp`)로 Claude 에 붙인다. 등기소 소유자 조회 하나를 빼면 읽기 전용이다.
+원격 MCP 서버(`https://lens.taxdesk.kr/mcp`)로 Claude 에 붙인다. 등기소 소유자 조회와 검토·확인 기록 저장을 빼면 읽기 전용이다.
 도구는 택스렌즈 화면과 같은 조회를 한다. 답변 문장은 호출한 모델이 쓴다.
 
 ## 설치
@@ -28,24 +28,45 @@ Claude Desktop 은 설정 → 플러그인 → 추가 → 저장소에서 추가
 
 ## 도구
 
+조회 도구는 화면과 같은 권한을 본다. 계정 역할에 따라 일부 도구가 안 보일 수 있고, 지금 쓸 수 있는 목록은
+`taxlens_whoami` 또는 택스렌즈 화면 상단 「Claude 연결」에서 확인한다.
+
 | 도구 | 쓰임 |
 |---|---|
 | `taxlens_whoami` | 연결 계정·조직·역할과 쓸 수 있는 도구 |
 | `taxlens_get_guide` | 도구 호출 순서·결과 해석·인용 규약 전문(환급 가망 절차 포함). 스킬이 먼저 부른다 |
+| `taxlens_data_freshness` | 데이터셋별 기준일 |
+| **물건·필지** | |
 | `taxlens_search_properties` | 물건 탐색기 목록. 지역(시도·시군구) 필수 |
 | `taxlens_get_parcel` | PNU 한 필지 상세 |
-| `taxlens_list_tax_base_rules` | 과세표준 위키의 확정 판단 규칙 |
-| `taxlens_search_precedents` | 부동산 세무 판례·심판례·유권해석 검색 |
-| `taxlens_get_precedent` | 사건 한 건의 요지·연결 규칙·전문 |
+| `taxlens_get_region_profile` | 시도·시군구의 감면 관련 지역속성·산업단지·정비구역·조례 감면 |
 | `taxlens_search_ownership_changes` | 지역·기간의 소유권 변동 사건, 법인 취득 후 양도 패턴 |
 | `taxlens_get_ownership_timeline` | 필지 한 건의 소유권 변동 이력 |
 | `taxlens_lookup_owner` | 필지 한 건의 등기부 소유자(법인명) 인터넷등기소 조회. 분당 5회 |
+| **과세표준·판례** | |
+| `taxlens_list_tax_base_rules` | 과세표준 위키의 확정 판단 규칙 |
+| `taxlens_get_tax_base_rule` | 판단 규칙 한 건의 요건·근거 |
+| `taxlens_search_precedents` | 부동산 세무 판례·심판례·유권해석 검색 |
+| `taxlens_get_precedent` | 사건 한 건의 요지·연결 규칙·전문 |
+| **환급 가망** | |
+| `taxlens_list_refund_scenarios` | 환급 시나리오 목록(세목·오류 단계·상태·조문)과 대응 가망 도구, 코드 하나면 상세 |
+| `taxlens_find_prospects` | 환급 시나리오 코드 하나로 지역의 가망 후보, 운영 밖 시나리오는 사유만 |
+| `taxlens_check_parcel_prospects` | 필지 하나가 어느 가망 쟁점의 후보인지 판정 |
 | `taxlens_find_renewal_prospects` | 정비사업 조합 신축 단지의 취득세 환급 가망(조합원·조합 원시취득, 재개발 감면) |
 | `taxlens_get_renewal_project` | 정비사업 한 곳의 단계·보존 단지·조합원/조합 호실·기한 |
-| `taxlens_find_industrial_complex_prospects` | 산업단지 입주자 감면 누락 가망, 필지 단위 |
+| `taxlens_find_industrial_complex_prospects` | 산업단지 입주자 신축 감면 누락 가망, 필지 단위 |
+| `taxlens_find_industrial_extension_prospects` | 산업단지 증축·대수선 감면 누락 가망 |
 | `taxlens_find_officetel_rental_prospects` | 오피스텔 임대사업자 최초 분양 감면 누락 가망, 건물·취득일 묶음 |
+| `taxlens_find_new_housing_reduction_prospects` | 신축 소형 비아파트·지방 준공 후 미분양 주택 감면 누락 가망 |
+| `taxlens_find_regional_biz_prospects` | 인구감소지역·반환공여구역 사업장 신설 감면 누락 가망 |
+| `taxlens_record_prospect_check` | 가망 후보 한 건을 실제로 확인한 결과 기록 |
+| `taxlens_get_prospect_check_stats` | 확인 결과로 본 시나리오별 누락률 |
+| **검토** | |
+| `taxlens_get_review` | 필지 한 건에 대한 우리 조직의 검토 기록 |
+| `taxlens_save_review_note` | 필지 검토 메모 저장(이전 메모는 버전으로 남음) |
 
-`taxlens_lookup_owner`만 외부 조회·저장을 하고 나머지는 읽기 전용이다. 택스렌즈 원장에는 소유자 이름이 없어,
+기록·외부 조회를 하는 도구는 셋이다 — `taxlens_lookup_owner`(등기소 조회·저장), `taxlens_record_prospect_check`·`taxlens_save_review_note`(조직 기록 저장).
+나머지는 읽기 전용이다. 택스렌즈 원장에는 소유자 이름이 없어,
 법인명은 등기소 조회를 거친 필지만 보인다(나머지는 「미조회」).
 개인 소유자 이름은 싣지 않는다(국공유·법인·종중·종교단체만 이름 공개, 등기 대표 명의가 개인이면 비공개).
 사용자 분당 60회, 조직 분당 300회까지 부를 수 있다.
@@ -94,7 +115,7 @@ claude plugin update taxlens@taxlens-plugin
 
 claude.ai 는 플러그인을 받지 않는다. 설정 → 커넥터 → 커스텀 커넥터 추가에서
 이름 `택스렌즈`, URL `https://lens.taxdesk.kr/mcp` 로 등록하고 브라우저에서 로그인·연결 허용한다.
-도구 14종은 같고, 스킬·슬래시 커맨드는 붙지 않는다. 절차는 서버 안내와 `taxlens_get_guide`로 받는다.
+도구는 같고, 스킬·슬래시 커맨드는 붙지 않는다. 절차는 서버 안내와 `taxlens_get_guide`로 받는다.
 
 Claude Code 에서 플러그인 없이 서버만 붙이려면:
 

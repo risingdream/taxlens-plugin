@@ -31,11 +31,9 @@ claude plugin update taxlens@taxlens-plugin
 
 ## 들어 있는 것
 
-- 도구 14종 — `taxlens_whoami` · `taxlens_get_guide`(사용 절차 전문, 로그인 연결에서만) · `taxlens_search_properties` · `taxlens_get_parcel` ·
-  `taxlens_list_tax_base_rules` · `taxlens_search_precedents` · `taxlens_get_precedent` ·
-  `taxlens_search_ownership_changes` · `taxlens_get_ownership_timeline` · `taxlens_lookup_owner`(등기소 소유자 조회 — 유일하게 외부 조회·저장) ·
-  `taxlens_find_renewal_prospects` · `taxlens_get_renewal_project` · `taxlens_find_industrial_complex_prospects` ·
-  `taxlens_find_officetel_rental_prospects`(정비사업·산업단지·오피스텔 환급 가망 탐색)
+- 도구 27종 — 계정·가이드·데이터 기준일, 물건·필지·지역 프로필·소유권 변동·등기소 소유자 조회(외부 조회·저장),
+  과세표준 판단 규칙·판례, 환급 시나리오와 시나리오별 가망 후보·필지 가망 판정·유형별 가망 탐색(정비사업·산업단지·오피스텔·신축 주택·인구감소지역),
+  가망 확인 기록·누락률, 필지 검토 조회·메모(조직 기록 저장). 목록은 [`plugins/taxlens/README.md`](plugins/taxlens/README.md#도구)
 - 스킬 `taxlens` — 흐름별 도구 호출 순서, 인용 형식, 개인 소유자 비공개 원칙, legal-kb 연계
 - 스킬 `refund-prospects` — 환급 가망 질문이면 `taxlens_get_guide`로 절차를 먼저 받게 하는 얇은 스킬
 - 커맨드 `/taxlens:물건` · `/taxlens:필지` · `/taxlens:판례` · `/taxlens:가망` (Claude Code·Desktop 전용)

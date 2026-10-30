@@ -20,7 +20,7 @@ description: 택스렌즈(TaxLens) MCP로 지역·단지·조합에서 취득세
 | 순서 | 도구 |
 |---|---|
 | 0 절차 | `taxlens_get_guide(topic="refund-prospects")` |
-| 1 탐색 | `taxlens_find_renewal_prospects` · `taxlens_find_industrial_complex_prospects` · `taxlens_find_officetel_rental_prospects` |
+| 1 탐색 | 시나리오가 정해지면 `taxlens_find_prospects` 먼저, 아니면 `taxlens_find_renewal_prospects` · `taxlens_find_industrial_complex_prospects` · `taxlens_find_officetel_rental_prospects` |
 | 2 확인 | `taxlens_get_parcel` → `taxlens_get_ownership_timeline` (정비사업은 `taxlens_get_renewal_project`) |
 | 3 근거 | `taxlens_search_precedents` → `taxlens_get_precedent`, 조문은 legal-kb `get_article` |
 

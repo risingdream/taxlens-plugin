@@ -34,7 +34,7 @@ description: 택스렌즈(TaxLens) MCP로 부동산 물건·필지·과세표준
 ## legal-kb와 함께
 
 택스렌즈에는 **법령 조문 원문이 없다.** 조문은 legal-kb `get_article(law_name, article_no, as_of)`,
-택스렌즈에 없는 판례·결정례는 legal-kb `get_decision(case_no)`로 본다. 취득·과세 시점이 있으면 같은 날짜를 `as_of`로 넘긴다.
+택스렌즈 판례의 요지·전문은 legal-kb와 같은 원천에서 온다. 택스렌즈 위키 밖의 판례·결정례는 legal-kb `get_decision(case_no)`로 본다. 취득·과세 시점이 있으면 같은 날짜를 `as_of`로 넘긴다.
 legal-kb가 없으면 조문을 기억으로 채우지 않고 「조문 원문은 확인하지 못했다」고 쓴다.
 
 ## 인용 형식
@@ -59,7 +59,7 @@ legal-kb가 없으면 조문을 기억으로 채우지 않고 「조문 원문�
 |---|---|
 | 401 / 인증 필요 | 로그인이 끝나지 않았거나 만료됐다. Claude Code는 `/mcp` → `taxlens` → 인증 |
 | 403 `mcp_disabled` | 조직의 MCP 연결이 꺼져 있다. 택스렌즈 운영자에게 조직 스위치를 요청한다 |
-| 403 `mcp_forbidden` | 역할(열람 전용 `VIEWER` 등)이 MCP를 쓸 수 없다. 조직 관리자에게 역할 변경을 요청한다 |
+| 403 `mcp_forbidden` | 계정 역할에 MCP 권한이 없다. 조직 관리자에게 문의한다 |
 | 403 `account_disabled` | 계정 또는 조직이 비활성이다 |
 | 429 요청이 너무 많습니다 | 사용자 분당 60회·조직 분당 300회 상한. `retry_after_seconds` 뒤 다시 |
 | 지역 후보 목록 | 지역 이름이 여러 곳과 겹친다. 후보의 이름 또는 코드로 다시 |
